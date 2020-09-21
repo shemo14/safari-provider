@@ -9,42 +9,66 @@ import {
     Dimensions,
     FlatList,
     Platform,
-    Share,
+    ActivityIndicator,
 } from "react-native";
 import {Container, Header, Right, Body, Left, Content } from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
-import { useDispatch, useSelector } from 'react-redux'
-import {ScrollView} from "react-native-web";
-import * as Animatable from "react-native-animatable";
+import {useSelector, useDispatch} from 'react-redux';
+import {getMyServices} from '../actions';
 
 const width	 		= Dimensions.get('window').width;
 const height 		= Dimensions.get('window').height;
 const isIOS  		= Platform.OS === 'ios';
 const IS_IPHONE_X 	= (height === 812 || height === 896) && Platform.OS === 'ios';
 
-const services = [
-    {id: 0, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_1.jpg'), rate: 3, price: 500},
-    {id: 1, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_2.jpg'), rate: 5, price: 500},
-    {id: 2, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_3.jpg'), rate: 2, price: 500},
-    {id: 3, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_4.jpg'), rate: 4, price: 500},
-    {id: 4, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_3.jpg'), rate: 2, price: 500},
-    {id: 5, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_4.jpg'), rate: 4, price: 500},
-    {id: 6, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_3.jpg'), rate: 2, price: 500},
-    {id: 7, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_4.jpg'), rate: 4, price: 500},
-];
 
 function Services({navigation, route}) {
 
-    function Item({ name , image , rate , index, category , price }) {
+    const category_id = route.params.category_id;
+
+    const lang = useSelector(state => state.lang.lang);
+    const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
+    const myServices = useSelector(state => state.myServices.myServices);
+    const myServicesLoader = useSelector(state => state.myServices.loader);
+
+    const dispatch = useDispatch();
+
+    function fetchData() {
+        dispatch(getMyServices(lang , category_id, token))
+    }
+
+    useEffect(() => {
+        fetchData();
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchData();
+        });
+
+        return unsubscribe;
+    }, [navigation , myServicesLoader]);
+
+
+
+    function renderLoader(){
+        if (myServicesLoader === false){
+            return(
+                <View style={[styles.loading, styles.flexCenter, {height:'100%'}]}>
+                    <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
+                </View>
+            );
+        }
+    }
+
+
+    function Item({ name , image  , index , id, price }) {
 
         return (
-            <TouchableOpacity key={'_' + index} style={{ borderRadius: 10, height: 170, width: '47%', margin: 5, overflow: 'hidden',}} onPress={() => navigation.navigate('serviceDetails')}>
-                <ImageBackground source={image} resizeMode={'cover'} style={{ height: 170, width: '100%', borderRadius: 10 }}>
+            <TouchableOpacity key={'_' + index} style={{ borderRadius: 10, height: 170, width: '47%', margin: 5, overflow: 'hidden',}} onPress={() => navigation.navigate('serviceDetails' , {service_id:id})}>
+                <ImageBackground source={{uri:image}} resizeMode={'cover'} style={{ height: 170, width: '100%', borderRadius: 10 }}>
                     <View style={[styles.overlay_black , styles.Width_100, { zIndex: 0, height: 200, position: 'absolute' }]} />
                     <View style={{ bottom: 0, position: 'absolute', height: 60, paddingHorizontal: 10 }}>
-                        <Text style={[ styles.textBold, styles.text_White, styles.textSize_14, styles._alignText, styles.Width_100 ]}>{ name }</Text>
+                        <Text style={[ styles.textBold, styles.text_White, styles.textSize_14, styles.writngDir, styles.Width_100 ]}>{ name }</Text>
                         <Text style={[ styles.textBold, styles.text_orange, styles._alignText, styles.textRight ]}>{ price } { i18n.t('RS') } </Text>
                     </View>
                 </ImageBackground>
@@ -54,7 +78,8 @@ function Services({navigation, route}) {
 
     return (
         <Container>
-            <ImageBackground source={require('../../assets/images/bg.png')} style={{ width, height: height-100, alignSelf: 'center', flexGrow: 1 }} resizeMode={'cover'}>
+            {renderLoader()}
+            <ImageBackground source={require('../../assets/images/bg.png')} style={{ width, height: 200, alignSelf: 'center', flexGrow: 1 }} resizeMode={'cover'}>
                 <Header style={{ backgroundColor: 'transparent',  borderBottomWidth: 0 , paddingTop:10}} noShadow>
                     <Right style={[styles.directionRowCenter , { flex: 0}]}>
                         <TouchableOpacity onPress={() => navigation.goBack()} style={{ width: 50, height: 50, justifyCenter: 'center', alignItems: 'center' }}>
@@ -70,16 +95,14 @@ function Services({navigation, route}) {
                     </Left>
                 </Header>
 
-                <Content bounces={false} style={{ height: height*56/100, marginTop: 10, overflow: 'hidden', borderTopRightRadius: 50, }}>
-                    <View style={{ width: '100%', padding: 15, borderTopRightRadius: 50, backgroundColor: '#fff' }}>
+                <Content contentContainerStyle={[styles.bgFullWidth]} bounces={false} style={{height:'100%', marginTop: 10, overflow: 'hidden', borderTopRightRadius: 50, }}>
+                    <View style={{ width: '100%' , height:'100%', padding: 15, borderTopRightRadius: 50, backgroundColor: '#fff' }}>
                         <FlatList
-                            data={services}
+                            data={myServices}
                             renderItem={({ item , index}) => <Item
                                 name={item.name}
                                 index={index}
                                 image={item.image}
-                                category={item.category}
-                                rate={item.rate}
                                 price={item.price}
                                 id={item.id}
                             />}
@@ -87,7 +110,6 @@ function Services({navigation, route}) {
                             numColumns={2}
                             horizontal={false}
                             columnWrapperStyle={[styles.directionRowCenter]}
-                            // extraData={isFav}
                         />
                     </View>
                 </Content>

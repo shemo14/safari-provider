@@ -24,14 +24,7 @@ const height 		= Dimensions.get('window').height;
 const isIOS  		= Platform.OS === 'ios';
 const IS_IPHONE_X 	= (height === 812 || height === 896) && Platform.OS === 'ios';
 
-const images = [
-    require('../../assets/images/slider_1.png'),
-    require('../../assets/images/slider_2.png'),
-    require('../../assets/images/slider_3.png'),
-    require('../../assets/images/slider_4.png'),
-];
-
-const providers = [
+const services = [
     {id: 0, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_1.jpg'), rate: 3, price: 500},
     {id: 1, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_2.jpg'), rate: 5, price: 500},
     {id: 2, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_3.jpg'), rate: 2, price: 500},
@@ -42,7 +35,7 @@ const providers = [
     {id: 7, name: 'مؤسسة كشتة', category: 'سفاري', image: require('../../assets/images/prov_4.jpg'), rate: 4, price: 500},
 ];
 
-function Favs({navigation, route}) {
+function Services({navigation, route}) {
 
     function Item({ name , image , rate , index, category , price }) {
 
@@ -80,7 +73,7 @@ function Favs({navigation, route}) {
                 <Content bounces={false} style={{ height: height*56/100, marginTop: 10, overflow: 'hidden', borderTopRightRadius: 50, }}>
                     <View style={{ width: '100%', padding: 15, borderTopRightRadius: 50, backgroundColor: '#fff' }}>
                         <FlatList
-                            data={providers}
+                            data={services}
                             renderItem={({ item , index}) => <Item
                                 name={item.name}
                                 index={index}
@@ -103,4 +96,4 @@ function Favs({navigation, route}) {
     )
 }
 
-export default Favs;
+export default Services;

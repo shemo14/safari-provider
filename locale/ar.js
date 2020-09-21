@@ -37,10 +37,10 @@ const ar = {
     'notiText'                  : 'يمكنك الآن مشاهدة الاشعارات التي تصل اليك',
     'deleteNoti'                : 'هل انت متأكد من مسح الإشعار؟',
     'cancel'                    : 'الغاء',
-    'rate'                      : 'التقييم',
+    'rate'                      : 'تقييم',
     'rateText'                  : 'تم تقديم الخدمة لكم ونتمني تقييمكم لخدمتنا',
     'confirmEvaluation'         : 'تأكيد التقييم',
-    'confirmRateText'           : 'تم تقييم الخدمة بنجاح شكرا لك',
+    'confirmRateText'           : 'تم تأكيد التقييم شكرا علي حسن تعاونكم',
     'goToHome'                  : 'الذهاب للرئيسية',
     'discount'                  : 'خصم',
     'more'                      : 'المزيد',
@@ -146,6 +146,9 @@ const ar = {
 	'additionName'              : 'اسم الاضافه',
 	'additionNameEn'            : 'اسم الاضافه بالانجليزي',
 	'additionPrice'             : 'سعر الاضافه',
+	'seeOffer'                  : 'مشاهده العرض',
+	'rateServ'                  : 'يرجي تقييم الخدمه المستخدمه',
+	'rateServTitle'             : 'تقييم الخدمه',
 };
 
 export default ar;

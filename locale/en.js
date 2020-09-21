@@ -40,7 +40,7 @@ const en = {
     'rate'                      : 'Rate',
     'rateText'                  : 'The service has been provided to you and we hope that you evaluate our service',
     'confirmEvaluation'         : 'Confirm the evaluation',
-    'confirmRateText'           : 'Service evaluated successfully. Thank you',
+    'confirmRateText'           : 'Rating confirmed Thank you for your kind cooperation',
     'goToHome'                  : 'Go to home',
     'discount'                  : 'Discount',
     'more'                      : 'More',
@@ -146,6 +146,9 @@ const en = {
     'additionName'              : 'Addition name',
     'additionNameEn'            : 'Addition name in english',
     'additionPrice'             : 'Addition price',
+    'seeOffer'                  : 'See offer',
+    'rateServ'                  : 'Please rate the service used',
+    'rateServTitle'             : 'Rate service',
 };
 
 export default en;

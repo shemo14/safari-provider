@@ -47,14 +47,14 @@ function Additions({navigation, route}) {
     const [priceStatus, setPriceStatus] = useState(0);
 
     function activeInput(type) {
-        if (type === 'servName' || servName !== '') setServNameStatus(1);
-        if (type === 'servNameEn' || servNameEn !== '') setServNameEnStatus(1);
+        if (type === 'additionName' || additionName !== '') setAdditionNameStatus(1);
+        if (type === 'additionNameEn' || additionNameEn !== '') setAdditionNameEnStatus(1);
         if (type === 'price' || price !== '') setPriceStatus(1);
     }
 
     function unActiveInput(type) {
-        if (type === 'servName' && servName === '') setServNameStatus(0);
-        if (type === 'servNameEn' && servNameEn === '') setServNameEnStatus(0);
+        if (type === 'additionName' && additionName === '') setAdditionNameStatus(0);
+        if (type === 'additionNameEn' && additionNameEn === '') setAdditionNameEnStatus(0);
         if (type === 'price' && price === '') setPriceStatus(0);
     }
 
@@ -158,9 +158,16 @@ function Additions({navigation, route}) {
                                     </Item>
                                 </View>
 
-                                <TouchableOpacity onPress={() => navigation.navigate('addService')} style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25]}>
-                                    <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
-                                </TouchableOpacity>
+                                {
+                                    additionName && additionNameEn && price && userImage ?
+                                        <TouchableOpacity onPress={() => navigation.navigate('addService' ,{addition:{addition_ar:additionName , addition_en:additionNameEn , price , imageUrl:userImage , image:base64}})} style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25]}>
+                                            <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
+                                        </TouchableOpacity>
+                                    :
+                                        <View style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25 , styles.bg_light_gray]}>
+                                            <Text style={[styles.textRegular , styles.text_black , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
+                                        </View>
+                                }
 
                             </Form>
                         </KeyboardAvoidingView>

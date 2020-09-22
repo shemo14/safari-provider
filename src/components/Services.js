@@ -27,6 +27,8 @@ const IS_IPHONE_X 	= (height === 812 || height === 896) && Platform.OS === 'ios'
 function Services({navigation, route}) {
 
     const category_id = route.params.category_id;
+    const image = route.params.image;
+    const name = route.params.name;
 
     const lang = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
@@ -64,7 +66,7 @@ function Services({navigation, route}) {
     function Item({ name , image  , index , id, price }) {
 
         return (
-            <TouchableOpacity key={'_' + index} style={{ borderRadius: 10, height: 170, width: '47%', margin: 5, overflow: 'hidden',}} onPress={() => navigation.navigate('serviceDetails' , {service_id:id})}>
+            <TouchableOpacity style={{ borderRadius: 10, height: 170, width: '47%', margin: 5, overflow: 'hidden',}} onPress={() => navigation.navigate('serviceDetails' , {service_id:id})}>
                 <ImageBackground source={{uri:image}} resizeMode={'cover'} style={{ height: 170, width: '100%', borderRadius: 10 }}>
                     <View style={[styles.overlay_black , styles.Width_100, { zIndex: 0, height: 200, position: 'absolute' }]} />
                     <View style={{ bottom: 0, position: 'absolute', height: 60, paddingHorizontal: 10 }}>
@@ -89,7 +91,7 @@ function Services({navigation, route}) {
                     </Right>
                     <Body style={{ alignSelf: 'flex-start'}} />
                     <Left style={[styles.directionRowCenter , { flex: 0}]}>
-                        <TouchableOpacity onPress={() => navigation.navigate('tripServices')} style={{ width: 50, height: 50, justifyCenter: 'center', alignItems: 'center' }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('tripServices' , {image , category_id , name})} style={{ width: 50, height: 50, justifyCenter: 'center', alignItems: 'center' }}>
                             <Image source={require('../../assets/images/add.png')} style={[{ width: 22, height: 22, marginTop: 10 }]} resizeMode={'contain'}/>
                         </TouchableOpacity>
                     </Left>

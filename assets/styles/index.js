@@ -403,6 +403,9 @@ const styles = ({
     bg_White : {
         backgroundColor     : '#FFF'
     },
+    bg_blue : {
+        backgroundColor     : COLORS.blue
+    },
     bg_light_gray : {
         backgroundColor     : '#F1F1F1'
     },

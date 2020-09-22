@@ -8,6 +8,8 @@ import categories from './CategoriesReducer';
 import subCategoriesByCat from './SubCategoriesByCatReducer';
 import myServices from './MyServicesReducer';
 import serviceDetailes from './ServiceDetailesReducer';
+import notifications from './NotificationsReducer';
+import subCategories from './SubCategoriesReducer';
 
 
 export default combineReducers({
@@ -20,4 +22,6 @@ export default combineReducers({
 	subCategoriesByCat,
 	myServices,
 	serviceDetailes,
+	notifications,
+	subCategories,
 });

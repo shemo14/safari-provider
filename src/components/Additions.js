@@ -31,6 +31,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import COLORS from "../consts/colors";
 import { useDispatch, useSelector } from 'react-redux'
+import * as Animatable from "react-native-animatable";
 
 const width		 	= Dimensions.get('window').width;
 const height	 	= Dimensions.get('window').height;
@@ -105,7 +106,7 @@ function Additions({navigation, route}) {
                         styles.Width_100, {borderTopRightRadius:50 , marginTop:70 , paddingTop:50}]}>
 
 
-                        <View style={[styles.tripHeaderShadow , styles.width_120 ,{marginTop:0 , top:-70 }]}>
+                        <Animatable.View animation="fadeIn" easing="ease-out" delay={700} style={[styles.tripHeaderShadow , styles.width_120 ,{marginTop:0 , top:-70 }]}>
                             <View style={[styles.tripHeaderImage, styles.height_120]}>
                                 <View style={[styles.tripImage]}>
                                     <View style={[ styles.bg_White, styles.Width_100, styles.position_A, styles.height_120 , styles.borderGray, { zIndex: -1 ,
@@ -121,7 +122,7 @@ function Additions({navigation, route}) {
 
                                 </View>
                             </View>
-                        </View>
+                        </Animatable.View>
 
                         <KeyboardAvoidingView behavior={'padding'} style={[styles.keyboardAvoid]}>
                             <Form style={[styles.Width_100 , styles.flexCenter, styles.marginVertical_10, styles.Width_90, styles.marginTop_35 ]}>

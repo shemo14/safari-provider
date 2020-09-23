@@ -149,6 +149,9 @@ const en = {
     'seeOffer'                  : 'See offer',
     'rateServ'                  : 'Please rate the service used',
     'rateServTitle'             : 'Rate service',
+    'complaintIntro'            : 'Send Complaint To Mangers',
+    'complaintMsg'              : 'Complaint Msg',
+    'complaintTitle'            : 'Complaint title',
 };
 
 export default en;

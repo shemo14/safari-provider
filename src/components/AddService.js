@@ -32,6 +32,7 @@ import * as Permissions from 'expo-permissions';
 import COLORS from "../consts/colors";
 import { useDispatch, useSelector } from 'react-redux'
 import {StoreService} from "../actions";
+import * as Animatable from "react-native-animatable";
 
 const width		 	= Dimensions.get('window').width;
 const height	 	= Dimensions.get('window').height;
@@ -195,8 +196,7 @@ function AddService({navigation, route}) {
 
                     <View style={[styles.bg_White, styles.heightFull, styles.Width_100, {borderTopRightRadius:50 , marginTop:70 , paddingTop:50}]}>
 
-
-                        <View style={[styles.tripHeaderShadow , styles.width_120 ,{marginTop:0 , top:-70 }]}>
+                        <Animatable.View animation="fadeIn" easing="ease-out" delay={700} style={[styles.tripHeaderShadow , styles.width_120 ,{marginTop:0 , top:-70 }]}>
                             <View style={[styles.tripHeaderImage, styles.height_120]}>
                                 <View style={[styles.tripImage]}>
                                     <View style={[ styles.bg_White, styles.Width_100, styles.position_A, styles.height_120 , styles.borderGray, { zIndex: 0 ,
@@ -207,7 +207,7 @@ function AddService({navigation, route}) {
 
                                 </View>
                             </View>
-                        </View>
+                        </Animatable.View>
 
                         <View>
                             <ScrollView style={[styles.scrollView, styles.marginTop_25]} horizontal={true} showsHorizontalScrollIndicator={false}>

@@ -17,6 +17,7 @@ import i18n from "../../locale/i18n";
 import COLORS from "../consts/colors";
 import {useSelector, useDispatch} from 'react-redux';
 import {getMyServices} from '../actions';
+import * as Animatable from "react-native-animatable";
 
 const width	 		= Dimensions.get('window').width;
 const height 		= Dimensions.get('window').height;
@@ -66,15 +67,17 @@ function Services({navigation, route}) {
     function Item({ name , image  , index , id, price }) {
 
         return (
-            <TouchableOpacity style={{ borderRadius: 10, height: 170, width: '47%', margin: 5, overflow: 'hidden',}} onPress={() => navigation.navigate('serviceDetails' , {service_id:id})}>
-                <ImageBackground source={{uri:image}} resizeMode={'cover'} style={{ height: 170, width: '100%', borderRadius: 10 }}>
-                    <View style={[styles.overlay_black , styles.Width_100, { zIndex: 0, height: 200, position: 'absolute' }]} />
-                    <View style={{ bottom: 0, position: 'absolute', height: 60, paddingHorizontal: 10 }}>
-                        <Text style={[ styles.textBold, styles.text_White, styles.textSize_14, styles.writngDir, styles.Width_100 ]}>{ name }</Text>
-                        <Text style={[ styles.textBold, styles.text_orange, styles._alignText, styles.textRight ]}>{ price } { i18n.t('RS') } </Text>
-                    </View>
-                </ImageBackground>
-            </TouchableOpacity>
+            <Animatable.View style={{width: '47%', margin: 5}} animation="fadeInUp" easing="ease-out" delay={500}>
+                <TouchableOpacity style={{ borderRadius: 10, height: 170, width: '100%', overflow: 'hidden',}} onPress={() => navigation.navigate('serviceDetails' , {service_id:id})}>
+                    <ImageBackground source={{uri:image}} resizeMode={'cover'} style={{ height: 170, width: '100%', borderRadius: 10 }}>
+                        <View style={[styles.overlay_black , styles.Width_100, { zIndex: 0, height: 200, position: 'absolute' }]} />
+                        <View style={{ bottom: 0, position: 'absolute', height: 60, paddingHorizontal: 10 }}>
+                            <Text style={[ styles.textBold, styles.text_White, styles.textSize_14, styles.writngDir, styles.Width_100 ]}>{ name }</Text>
+                            <Text style={[ styles.textBold, styles.text_orange, styles._alignText, styles.textRight ]}>{ price } { i18n.t('RS') } </Text>
+                        </View>
+                    </ImageBackground>
+                </TouchableOpacity>
+            </Animatable.View>
         );
     }
 

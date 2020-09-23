@@ -3,19 +3,19 @@ import CONST from "../consts";
 import {Toast} from "native-base";
 
 
-export const DeleteService = (lang , service_id , token , navigation) => {
+export const SendComp = (lang , email , subject , message , token  , navigation) => {
     return (dispatch) => {
         axios({
-            url         : CONST.url + 'deleteService',
+            url         : CONST.url + 'sendComplaint',
             method      : 'POST',
-            data        : { lang , service_id },
+            data        : { lang , email , subject , message },
             headers     : {Authorization: token}
         }).then(response => {
+
             if (response.data.success) {
-
-                navigation.navigate('services')
-
+                navigation.navigate('settings')
             }
+
             Toast.show({
                 text        : response.data.message,
                 type        : response.data.success ? "success" : "danger",

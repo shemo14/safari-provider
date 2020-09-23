@@ -75,7 +75,7 @@ const ar = {
     'about'                     : 'نظرة عامة عن التطبيق',
     'settings'                  : 'الاعدادات',
     'account'                   : 'الحساب',
-    'editData'                  : 'تعديل البيانات الشخصية',
+    'editData'                  : 'تعديل بياناتي',
     'changePass'                : 'تغيير كلمة المرور',
     'appNoti'                   : 'اشعارات التطبيق',
     'contactUs'                 : 'تواصل معنا',
@@ -149,6 +149,9 @@ const ar = {
 	'seeOffer'                  : 'مشاهده العرض',
 	'rateServ'                  : 'يرجي تقييم الخدمه المستخدمه',
 	'rateServTitle'             : 'تقييم الخدمه',
+    'complaintIntro'            : 'ارسل شكوي للادارة',
+    'complaintMsg'              : 'نص الشكوي',
+    'complaintTitle'            : 'عنوان الشكوي',
 };
 
 export default ar;

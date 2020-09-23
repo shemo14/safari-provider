@@ -17,30 +17,28 @@ export const profile = (token) => {
     }
 };
 
-export const updateProfile = (lang , name , phone ,email , avatar , token , navigation) => {
+
+export const updateProfile = (lang , name , phone , whatsapp , avatar , token , navigation) => {
     return (dispatch) => {
         axios({
-            url: CONST.url + 'update_profile',
+            url: CONST.url + 'UpdateProfile',
             method      : 'POST',
             headers     : {Authorization: token },
-            data        : { lang ,name , phone ,email , avatar }
+            data        : { lang ,name , phone ,whatsapp , avatar , type:'provider'}
         }).then(response => {
 
-            if (response.data.status) {
-
+            if (response.data.success) {
                 navigation.navigate('profile');
-
-                dispatch({type: 'update_profile', data:response.data.data});
-
+                dispatch({type: 'update_profile', data:response.data});
             }
 
             Toast.show({
-                text        : response.data.msg,
-                type        : response.data.status ? "success" : "danger",
+                text        : response.data.message,
+                type        : response.data.success ? "success" : "danger",
                 duration    : 3000,
                 textStyle       : {
                     color           : "white",
-                    fontFamily      : 'sukar',
+                    fontFamily      : 'ArbFONTS',
                     textAlign       : 'center'
                 }
             });
@@ -48,6 +46,7 @@ export const updateProfile = (lang , name , phone ,email , avatar , token , navi
         })
     }
 }
+
 
 export const logout = (lang , token) => {
     return (dispatch) => {

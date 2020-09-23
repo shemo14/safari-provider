@@ -10,3 +10,5 @@ export * from './NotificationsAction';
 export * from './SubCategoriesAction';
 export * from './StoreServiceAction';
 export * from './DeleteServiceAction';
+export * from './ChangeNotifyStatuAction';
+export * from './SendComplaintAction';

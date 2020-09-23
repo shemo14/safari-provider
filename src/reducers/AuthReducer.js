@@ -13,7 +13,7 @@ export default (state = INITIAL_STATE, action) => {
         case ('profile_data'):
             return ({...state, loading: false, user: action.data , isNotify:action.data.data.isNotify , message: action.data.message , success: action.data.success});
         case ('update_profile') :
-			return ({...state, loading: false, user: action , message: action.data.message , success: action.data.success});
+			return ({...state, loading: false, user: action.data , message: action.data.message , success: action.data.success});
         case ('isNotify') :
             return ({...state, isNotify: !state.isNotify});
         case ('user_logout') :

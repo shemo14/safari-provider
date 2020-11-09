@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "safary-provider",
+    "name": "سفاري مقدم",
     "slug": "safary-provider",
-    "version": "1.0.0",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,10 +17,25 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.safari.provider",
+      "userInterfaceStyle": "light",
+      "infoPlist": {
+        "NSCameraUsageDescription": "App need this permission to update profile photo.",
+        "NSPhotoLibraryAddUsageDescription": "App need this permission to update profile photo.",
+        "NSLocationWhenInUseUsageDescription": "App need this permission to return the nearest providers.",
+        "NSPhotoLibraryUsageDescription": "App need this permission to update profile photo."
+      }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "android": {
+      "package": "aait.safari.provider",
+      "userInterfaceStyle": "light",
+      "versionCode": 6,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBQu-aDY--uY14s4U3ok-XwwqhsnhLFe5Q"
+        }
+      }
     }
   }
 }

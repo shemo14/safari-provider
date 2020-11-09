@@ -58,3 +58,10 @@ export default function App() {
 		</Provider>
   	);
 }
+
+
+
+// Keystore credentials
+// Keystore password: f761dd052c8a4c9d96d61640683fb32c
+// Key alias:         QG1fc2hhbXMvc2FmYXJ5LXByb3ZpZGVy
+// Key password:      496365cd16ee45808965825d63b321c9

@@ -976,7 +976,7 @@ const styles = ({
         height: 90,
         zIndex: 1,
         borderRadius: 10,
-        marginTop: IS_IPHONE_X ? 120 : 70,
+        marginTop: IS_IPHONE_X ? 120 : Platform.OS === 'ios' ? 85 : 65,
         alignSelf: 'center',
         shadowColor: "#ffffff",
 		shadowOffset: {
@@ -1262,7 +1262,7 @@ const styles = ({
         color               : COLORS.blue,
         paddingRight        : 20,
         paddingLeft         : 20,
-        textAlign           : 'right',
+        textAlign           : I18nManager.isRTL ? 'right' : 'left',
         fontFamily          : 'ArbFONTS',
         fontSize            : 15,
         top                 : 0,

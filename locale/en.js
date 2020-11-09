@@ -152,6 +152,14 @@ const en = {
     'complaintIntro'            : 'Send Complaint To Mangers',
     'complaintMsg'              : 'Complaint Msg',
     'complaintTitle'            : 'Complaint title',
+    'setLocation'               : 'Select Location',
+    'currentLocation'           : 'Current Location',
+    'editService'               : 'Edit Service',
+    'edit'                      : 'Edit',
+    'phoneRequired'             : 'Phone Is Required',
+    'settingsIntro'             : 'Change App Settings',
+    'langIntro'                 : 'Change Current Language',
+    'changePassIntro'           : 'To Change Old Password',
 };
 
 export default en;

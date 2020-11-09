@@ -152,6 +152,14 @@ const ar = {
     'complaintIntro'            : 'ارسل شكوي للادارة',
     'complaintMsg'              : 'نص الشكوي',
     'complaintTitle'            : 'عنوان الشكوي',
+    'setLocation'               : 'حدد الموقع',
+    'currentLocation'           : 'الموقع الحالي',
+    'editService'               : 'تعديل الخدمة',
+    'edit'                      : 'تعديل',
+    'phoneRequired'             : 'رقم الهاتف مطلوب',
+    'settingsIntro'             : 'لتغير اعدادات التطبيق الخاصه بك',
+    'langIntro'                 : 'لتغير لغة التطبيق الحالية',
+    'changePassIntro'           : 'لتغير كلمة المرور المقديمة',
 };
 
 export default ar;

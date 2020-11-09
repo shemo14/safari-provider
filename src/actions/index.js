@@ -12,3 +12,6 @@ export * from './StoreServiceAction';
 export * from './DeleteServiceAction';
 export * from './ChangeNotifyStatuAction';
 export * from './SendComplaintAction';
+export * from './DeleteImgAction';
+export * from './DeleteAddition';
+export * from './ChangePassAction';

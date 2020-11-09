@@ -2,15 +2,11 @@ import axios from "axios";
 import CONST from "../consts";
 import {Toast} from "native-base";
 
-
-
 export const getNotifications = (lang , token) => {
     return (dispatch) => {
         Notifications(lang, token, dispatch)
     }
 };
-
-
 
 export const deleteNoti = (lang , id , token ) => {
     return (dispatch) => {
@@ -33,6 +29,20 @@ export const deleteNoti = (lang , id , token ) => {
             });
         });
 
+    }
+};
+
+
+export const getNotificationCounter = (lang , token ) => {
+    return (dispatch) => {
+        axios({
+            url         : CONST.url + 'countNotification',
+            method      : 'POST',
+            headers     : { Authorization: token },
+            data        : { lang }
+        }).then(response => {
+            dispatch({type: 'getNotificationCounter', payload: response.data});
+        });
     }
 };
 

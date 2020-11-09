@@ -1,51 +1,25 @@
 import React, { useState , useEffect, useRef } from "react";
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    ImageBackground,
-    ScrollView,
-    I18nManager,
-    Dimensions,
-    KeyboardAvoidingView
-} from "react-native";
-import {
-    Container,
-    Content,
-    Form,
-    Input,
-    Textarea,
-    Header,
-    Right,
-    Left,
-    Body,
-    CheckBox,
-    Icon,
-    Item,
-    Label
-} from 'native-base'
+import { View, Text, Image, TouchableOpacity, ImageBackground, I18nManager, Dimensions, KeyboardAvoidingView } from "react-native";
+import { Container, Content, Form, Input, Header, Right, Body, Icon, Item, Label } from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import COLORS from "../consts/colors";
-import { useDispatch, useSelector } from 'react-redux'
-import * as Animatable from "react-native-animatable";
 
 const width		 	= Dimensions.get('window').width;
 const height	 	= Dimensions.get('window').height;
 
 function Additions({navigation, route}) {
-    const [userImage, setUserImage] = useState(null);
-    const [base64, setBase64] = useState('');
-
-    const [additionName, setAdditionName] = useState('');
-    const [additionNameStatus, setAdditionNameStatus] = useState(0);
-    const [additionNameEn, setAdditionNameEn] = useState('');
-    const [additionNameEnStatus, setAdditionNameEnStatus] = useState(0);
-    const [price, setPrice] = useState('');
-    const [priceStatus, setPriceStatus] = useState(0);
+    const [userImage, setUserImage]                         = useState(null);
+    const [base64, setBase64]                               = useState('');
+    const { routeName }                                     = route.params;
+    const [additionName, setAdditionName]                   = useState('');
+    const [additionNameStatus, setAdditionNameStatus]       = useState(0);
+    const [additionNameEn, setAdditionNameEn]               = useState('');
+    const [additionNameEnStatus, setAdditionNameEnStatus]   = useState(0);
+    const [price, setPrice]                                 = useState('');
+    const [priceStatus, setPriceStatus]                     = useState(0);
 
     function activeInput(type) {
         if (type === 'additionName' || additionName !== '') setAdditionNameStatus(1);
@@ -58,8 +32,6 @@ function Additions({navigation, route}) {
         if (type === 'additionNameEn' && additionNameEn === '') setAdditionNameEnStatus(0);
         if (type === 'price' && price === '') setPriceStatus(0);
     }
-
-
 
     const askPermissionsAsync = async () => {
         await Permissions.askAsync(Permissions.CAMERA);
@@ -98,15 +70,10 @@ function Additions({navigation, route}) {
                     <Body style={{ alignSelf: 'flex-start'}} />
                 </Header>
 
-
-
                 <Content contentContainerStyle={[styles.bgFullWidth]}>
+                    <View style={[styles.bg_White, styles.heightFull, styles.Width_100, {borderTopRightRadius:50 , marginTop:70 , paddingTop:50}]}>
 
-                    <View style={[styles.bg_White, styles.heightFull,
-                        styles.Width_100, {borderTopRightRadius:50 , marginTop:70 , paddingTop:50}]}>
-
-
-                        <Animatable.View animation="fadeIn" easing="ease-out" delay={700} style={[styles.tripHeaderShadow , styles.width_120 ,{marginTop:0 , top:-70 }]}>
+                        <View animation="fadeIn" easing="ease-out" delay={700} style={[styles.tripHeaderShadow , styles.width_120 ,{marginTop:0 , top:-70 }]}>
                             <View style={[styles.tripHeaderImage, styles.height_120]}>
                                 <View style={[styles.tripImage]}>
                                     <View style={[ styles.bg_White, styles.Width_100, styles.position_A, styles.height_120 , styles.borderGray, { zIndex: -1 ,
@@ -119,10 +86,9 @@ function Additions({navigation, route}) {
                                                 <Icon type={'AntDesign'} name={'plus'} style={{ color: COLORS.gray, fontSize: 24 }} />
                                         }
                                     </TouchableOpacity>
-
                                 </View>
                             </View>
-                        </Animatable.View>
+                        </View>
 
                         <KeyboardAvoidingView behavior={'padding'} style={[styles.keyboardAvoid]}>
                             <Form style={[styles.Width_100 , styles.flexCenter, styles.marginVertical_10, styles.Width_90, styles.marginTop_35 ]}>
@@ -137,6 +103,7 @@ function Additions({navigation, route}) {
                                         />
                                     </Item>
                                 </View>
+
                                 <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5 ]}>
                                     <Item floatingLabel style={[styles.item, styles.position_R ]}>
                                         <Label style={[styles.label, styles.textRegular ,{ color:additionNameEnStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('additionNameEn') }</Label>
@@ -147,6 +114,7 @@ function Additions({navigation, route}) {
                                         />
                                     </Item>
                                 </View>
+
                                 <View style={[styles.position_R, styles.height_70, styles.flexCenter, styles.marginBottom_5 ]}>
                                     <Item floatingLabel style={[styles.item, styles.position_R ]}>
                                         <Label style={[styles.label, styles.textRegular ,{ color:priceStatus === 1 ?  COLORS.blue :  COLORS.gray}]}>{ i18n.t('additionPrice') }</Label>
@@ -161,7 +129,7 @@ function Additions({navigation, route}) {
 
                                 {
                                     additionName && additionNameEn && price && userImage ?
-                                        <TouchableOpacity onPress={() => navigation.navigate('addService' ,{addition:{addition_ar:additionName , addition_en:additionNameEn , price , imageUrl:userImage , image:base64}})} style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25]}>
+                                        <TouchableOpacity onPress={() => navigation.navigate(routeName ,{addition:{addition_ar:additionName , addition_en:additionNameEn , price , imageUrl:userImage , image:base64}})} style={[styles.blueBtn , styles.Width_100 , styles.marginBottom_25]}>
                                             <Text style={[styles.textRegular , styles.text_White , styles.textSize_16]}>{ i18n.t('confirm') }</Text>
                                         </TouchableOpacity>
                                     :

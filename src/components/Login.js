@@ -15,12 +15,12 @@ function Login({navigation}) {
 
     const dispatch = useDispatch();
 
-    const [phone, setPhone] = useState('');
-    const [password, setPassword] = useState('');
-    const [deviceId, setDeviceId] = useState('');
-    const [phoneStatus, setPhoneStatus] = useState(0);
-    const [passwordStatus, setPasswordStatus] = useState(0);
-    const [spinner, setSpinner] = useState(false);
+    const [phone, setPhone]                     = useState('');
+    const [password, setPassword]               = useState('');
+    const [deviceId, setDeviceId]               = useState('');
+    const [phoneStatus, setPhoneStatus]         = useState(0);
+    const [passwordStatus, setPasswordStatus]   = useState(0);
+    const [spinner, setSpinner]                 = useState(false);
 
     const getDeviceId = async () => {
         const {status: existingStatus} = await Permissions.getAsync(
@@ -34,25 +34,17 @@ function Login({navigation}) {
             finalStatus = status;
         }
 
-        if (finalStatus !== 'granted') {
+        if (finalStatus !== 'granted')
             return;
-        }
 
         const deviceId = await Notifications.getExpoPushTokenAsync();
-
         setDeviceId(deviceId);
-
         AsyncStorage.setItem('deviceID', deviceId);
     };
 
     useEffect(() => {
-        getDeviceId()
+        setTimeout(() => getDeviceId(), 500)
     }, []);
-
-    useEffect(() => {
-		setTimeout(() => setSpinner(false), 500);
-    }, [auth]);
-
 
     function activeInput(type) {
         if (type === 'phone' || phone !== '') setPhoneStatus(1);
@@ -111,7 +103,7 @@ function Login({navigation}) {
 
         if (!err){
             setSpinner(true);
-            dispatch(userLogin(phone, password, deviceId , lang , navigation));
+            dispatch(userLogin(phone, password, deviceId , lang , navigation)).then(() => setSpinner(false));
         }
     }
 

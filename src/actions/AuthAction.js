@@ -3,21 +3,21 @@ import { AsyncStorage, Platform } from 'react-native';
 import { Toast } from 'native-base'
 import CONST from '../consts';
 
-export const userLogin = (phone, password, deviceId, lang , navigation) => {
-    return (dispatch) => {
+export const userLogin = (phone, password, deviceId, lang, navigation) => {
+	return async (dispatch) => {
 
-        dispatch({type: 'login_user'});
+		dispatch({type: 'login_user'});
 
-        axios.post(
-            CONST.url + 'login',
-            {phone, password, lang, device_id: deviceId, type: 'provider'})
-            .then(
-                response => handelLogin(dispatch, response.data , navigation)
-            )
-            .catch(
-                error => console.warn(error.data)
-            );
-    };
+		await axios.post(
+			CONST.url + 'login',
+			{phone, password, lang, device_id: deviceId, type: 'provider'})
+			.then(
+				response => handelLogin(dispatch, response.data, navigation)
+			)
+			.catch(
+				error => console.warn(error.data)
+			);
+	};
 };
 
 export const register = (data, navigation) => {

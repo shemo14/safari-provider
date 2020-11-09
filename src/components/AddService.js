@@ -1,30 +1,6 @@
-import React, { useState , useEffect, useRef } from "react";
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    ImageBackground,
-    ScrollView,
-    I18nManager,
-    Dimensions,
-    ActivityIndicator
-} from "react-native";
-import {
-    Container,
-    Content,
-    Form,
-    Input,
-    Textarea,
-    Header,
-    Right,
-    Left,
-    Body,
-    CheckBox,
-    Icon,
-    Item,
-    Label
-} from 'native-base'
+import React, { useState , useEffect } from "react";
+import { View, Text, Image, TouchableOpacity, ImageBackground, ScrollView, I18nManager, Dimensions, ActivityIndicator } from "react-native";
+import { Container, Content, Form, Input, Textarea, Header, Right, Body, Icon, Item, Label } from 'native-base'
 import styles from '../../assets/styles'
 import i18n from "../../locale/i18n";
 import * as ImagePicker from 'expo-image-picker';
@@ -42,29 +18,30 @@ let base64   = [];
 function AddService({navigation, route}) {
 
     let addition = route.params && route.params.addition ? route.params.addition : null;
-    const category_id = route.params.category_id;
-    const sub_category_id = route.params.sub_category_id;
-    const [photos, setPhotos] = useState([]);
+    let coords   = route.params && route.params.coords ? route.params.coords : null;
+
+    const category_id               = route.params.category_id;
+    const sub_category_id           = route.params.subCategories;
+    const [photos, setPhotos]       = useState([]);
     const [additions, setAdditions] = useState([]);
 
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const lang = useSelector(state => state.lang.lang);
+    const lang  = useSelector(state => state.lang.lang);
     const token = useSelector(state => state.auth.user ? state.auth.user.data.token : null);
 
-
-    const [servName, setServName] = useState('');
-    const [servNameStatus, setServNameStatus] = useState(0);
-    const [servNameEn, setServNameEn] = useState('');
-    const [servNameEnStatus, setServNameEnStatus] = useState(0);
-    const [whatsNum, setWhatsNum] = useState('');
-    const [whatsNumStatus, setWhatsNumStatus] = useState(0);
-    const [price, setPrice] = useState('');
-    const [priceStatus, setPriceStatus] = useState(0);
-    const [desc, setDesc] = useState('');
-    const [descStatus, setDescStatus] = useState(0);
-    const [descEn, setDescEn] = useState('');
-    const [descEnStatus, setDescEnStatus] = useState(0);
+    const [servName, setServName]                   = useState('');
+    const [servNameStatus, setServNameStatus]       = useState(0);
+    const [servNameEn, setServNameEn]               = useState('');
+    const [servNameEnStatus, setServNameEnStatus]   = useState(0);
+    const [whatsNum, setWhatsNum]                   = useState('');
+    const [whatsNumStatus, setWhatsNumStatus]       = useState(0);
+    const [price, setPrice]                         = useState('');
+    const [priceStatus, setPriceStatus]             = useState(0);
+    const [desc, setDesc]                           = useState('');
+    const [descStatus, setDescStatus]               = useState(0);
+    const [descEn, setDescEn]                       = useState('');
+    const [descEnStatus, setDescEnStatus]           = useState(0);
 
     function activeInput(type) {
         if (type === 'servName' || servName !== '') setServNameStatus(1);
@@ -83,17 +60,17 @@ function AddService({navigation, route}) {
         if (type === 'desc' && desc === '') setDescStatus(0);
         if (type === 'descEn' && descEn === '') setDescEnStatus(0);
     }
-    const dispatch = useDispatch();
-    const addServ = () =>{
-        dispatch(StoreService(lang , servName , servNameEn , whatsNum , price , desc , descEn
-            ,sub_category_id , base64 ,additions,category_id , token , navigation))
-    }
 
+    const dispatch = useDispatch();
+
+    const addServ = () =>{
+        setIsSubmitted(true);
+        dispatch(StoreService(lang , servName , servNameEn , whatsNum , price , desc , descEn, coords.latitude, coords.longitude ,sub_category_id , base64 ,additions,category_id , token , navigation)).then(() => setIsSubmitted(false))
+    }
 
     useEffect(() => {
         setIsSubmitted(false)
     }, [isSubmitted]);
-
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -108,7 +85,6 @@ function AddService({navigation, route}) {
         return unsubscribe;
     }, [navigation, addition])
 
-
     function confirmDelete (i) {
         photos.splice(i, 1);
         setPhotos([...photos]);
@@ -116,7 +92,6 @@ function AddService({navigation, route}) {
         console.log('base64',base64)
         console.log('photos',photos)
     };
-
 
     function renderUploadImgs() {
         let imgBlock = [];
@@ -142,7 +117,6 @@ function AddService({navigation, route}) {
     const askPermissionsAsync = async () => {
         await Permissions.askAsync(Permissions.CAMERA);
         await Permissions.askAsync(Permissions.CAMERA_ROLL);
-
     };
 
     const _pickImage = async (i) => {
@@ -165,8 +139,6 @@ function AddService({navigation, route}) {
             }
 
             setPhotos([...tempPhotos]);
-            console.log('tempPhotos', photos , 'PhotosNew' ,tempPhotos)
-            console.log('base64',base64)
         }
     };
 
@@ -174,8 +146,6 @@ function AddService({navigation, route}) {
         additions.splice(i, 1)
         setAdditions([...additions]);
     }
-
-
 
     return(
         <Container>
@@ -196,7 +166,7 @@ function AddService({navigation, route}) {
 
                     <View style={[styles.bg_White, styles.heightFull, styles.Width_100, {borderTopRightRadius:50 , marginTop:70 , paddingTop:50}]}>
 
-                        <Animatable.View animation="fadeIn" easing="ease-out" delay={700} style={[styles.tripHeaderShadow , styles.width_120 ,{marginTop:0 , top:-70 }]}>
+                        <View animation="fadeIn" easing="ease-out" delay={700} style={[styles.tripHeaderShadow , styles.width_120 ,{marginTop:0 , top:-70 }]}>
                             <View style={[styles.tripHeaderImage, styles.height_120]}>
                                 <View style={[styles.tripImage]}>
                                     <View style={[ styles.bg_White, styles.Width_100, styles.position_A, styles.height_120 , styles.borderGray, { zIndex: 0 ,
@@ -207,7 +177,7 @@ function AddService({navigation, route}) {
 
                                 </View>
                             </View>
-                        </Animatable.View>
+                        </View>
 
                         <View>
                             <ScrollView style={[styles.scrollView, styles.marginTop_25]} horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -261,11 +231,15 @@ function AddService({navigation, route}) {
                                 </Item>
                             </View>
 
-                            <TouchableOpacity onPress={() => navigation.navigate('additions')} style={[styles.chooseLang , styles.marginBottom_25 , { borderColor: COLORS.gray , borderRadius: 5}]}>
+                            <TouchableOpacity onPress={() => navigation.navigate('setLocation', { routeName: 'addService'})} style={[styles.chooseLang , styles.marginBottom_25 , { borderColor: COLORS.gray , borderRadius: 5}]}>
+                                <Text style={[ styles.textSize_16, styles.text_gray, styles.textRegular, { textAlign: 'left', width: '100%'} ]}>{ coords ? (coords.address).substr(0, 50) : i18n.t('setLocation') }</Text>
+                                <Icon type={'Entypo'} name={'location'} style={{ position: 'absolute', right:0, marginHorizontal: 10 , color:COLORS.gray}}/>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => navigation.navigate('additions', { routeName: 'addService'})} style={[styles.chooseLang , styles.marginBottom_25 , { borderColor: COLORS.gray , borderRadius: 5}]}>
                                 <Text style={[ styles.textSize_16, styles.text_gray, styles.textRegular, { textAlign: 'left', width: '100%'} ]}>{ i18n.t('adds') }</Text>
                                 <Icon type={'AntDesign'} name={'plus'} style={{ position: 'absolute', right:0, marginHorizontal: 10 , color:COLORS.gray}}/>
                             </TouchableOpacity>
-
 
                             {
                                 additions ?
@@ -311,8 +285,7 @@ function AddService({navigation, route}) {
                             </View>
 
                             {
-                                isSubmitted && servName &&  servNameEn &&  whatsNum &&  price &&  desc &&  descEn
-                                && sub_category_id &&  base64 && additions&& category_id ?
+                                isSubmitted ?
                                     <View style={[{ justifyContent: 'center', alignItems: 'center' } , styles.marginBottom_25]}>
                                         <ActivityIndicator size="large" color={COLORS.blue} style={{ alignSelf: 'center' }} />
                                     </View>
@@ -328,8 +301,6 @@ function AddService({navigation, route}) {
                                             </View>
 
                             }
-
-
 
                         </Form>
                     </View>

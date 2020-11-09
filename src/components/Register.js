@@ -99,7 +99,6 @@ function Register({navigation}) {
 		    const data = { username, phone, password, lang };
 			dispatch(register(data, navigation));
         }
-
     }
 
 	function renderLoader(){

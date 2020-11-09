@@ -84,7 +84,7 @@ function Notifications({navigation, route}) {
     function Item({ title , date , body , id , type , service_id, index}) {
 
         return (
-            <Animatable.View style={{width: '100%', marginBottom: 10}} animation="fadeInUp" easing="ease-out" delay={500}>
+            <View style={{width: '100%', marginBottom: 10}} animation="fadeInUp" easing="ease-out" delay={500}>
                 <TouchableOpacity style={{ borderRadius: 10,width: '100%',padding:15, height:140, justifyContent:'center',
                      overflow: 'hidden',backgroundColor: index % 2 === 0 ? '#F1F0FE' : '#FEF0DF'}} onPress={type=== 1 ?() => navigation.navigate('serviceDetails' , {service_id}) : null}>
                     <TouchableOpacity onPress={() => deleteNotify(id)} style={[styles.paddingVertical_5 , styles.paddingHorizontal_5, styles.Radius_50
@@ -101,7 +101,7 @@ function Notifications({navigation, route}) {
                         <Text style={[ styles.textBold, styles.text_orange , styles.textDecoration, styles.textSize_13 , styles.alignStart]}>{ i18n.t('seeOffer') }</Text>
                     </View>
                 </TouchableOpacity>
-            </Animatable.View>
+            </View>
         );
     }
 
